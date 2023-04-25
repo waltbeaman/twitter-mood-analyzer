@@ -3,10 +3,10 @@ import json
 import style
 import twitterapicreds
 from textblob import TextBlob
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTextEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QTextEdit
 from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPainter, QColor, QBrush, QPen, QIcon
+from PyQt5.QtGui import QPainter, QColor, QBrush, QIcon
 import sys
 
 
@@ -14,7 +14,7 @@ import sys
 client = tweepy.Client(twitterapicreds.bearer_token)
 
 
-# Get the tweets to analyze
+# Get the tweets to analyze using Tweepy
 def fetch_tweets(query, count=100):
     fetched_tweets = []
     try:
@@ -28,7 +28,7 @@ def fetch_tweets(query, count=100):
     return fetched_tweets
 
 
-# Analyze the sentiment for each tweet and assign a score
+# Analyze the sentiment for each tweet and assign a score using TextBlob
 def analyze_sentiment(tweets):
     sentiment_scores = []
 
@@ -40,6 +40,8 @@ def analyze_sentiment(tweets):
 
 
 # Get the overall score or "mood" of the searched tweet
+# TODO: Display overall mood in separate text area or image with a larger/bold font.
+#   This should be the focus of the app.
 def get_overall_sentiment(sentiment_scores):
     overall_sentiment = 0
     mood_rating = "NEUTRAL"
@@ -74,6 +76,7 @@ def draw_pie_chart(positive_count, neutral_count, negative_count):
     chart.setTitle("<font color='white'>Mood Distribution</font>")
 
     chart.legend().setAlignment(Qt.AlignBottom)
+    # TODO: Investigate if it's possible to set the chart background color with CSS.
     chart.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
 
     return chart
@@ -104,10 +107,12 @@ class MoodAnalyzerApp(QWidget):
 
         self.pie_chart_view = QChartView()
         self.pie_chart_view.setRenderHint(QPainter.Antialiasing)
+        # TODO: Investigate if it's possible to set the chart background color with CSS.
         self.pie_chart_view.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
 
         # Create an empty chart area and set color to ensure dark mode
         empty_chart = QChart()
+        # TODO: Investigate if it's possible to set the chart background color with CSS.
         empty_chart.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
         self.pie_chart_view.setChart(empty_chart)
 
