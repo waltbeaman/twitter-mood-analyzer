@@ -73,7 +73,7 @@ def draw_pie_chart(positive_count, neutral_count, negative_count):
 
     chart = QChart()
     chart.addSeries(series)
-    chart.setTitle("<font color='white'>Mood Distribution</font>")
+    chart.setTitle("<font color='white' size='14'>Mood Distribution</font>")
 
     chart.legend().setAlignment(Qt.AlignBottom)
     # TODO: Investigate if it's possible to set the chart background color with CSS.
@@ -110,7 +110,7 @@ class MoodAnalyzerApp(QWidget):
         # TODO: Investigate if it's possible to set the chart background color with CSS.
         self.pie_chart_view.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
 
-        # Create an empty chart area and set color to ensure dark mode
+        # Create an empty chart area and set color to ensure dark mode on startup
         empty_chart = QChart()
         # TODO: Investigate if it's possible to set the chart background color with CSS.
         empty_chart.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
