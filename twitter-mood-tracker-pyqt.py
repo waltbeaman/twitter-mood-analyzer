@@ -66,14 +66,13 @@ def draw_pie_chart(positive_count, neutral_count, negative_count):
     colors = [QColor(0, 255, 0), QColor(255, 255, 0), QColor(255, 0, 0)]
     for i, slice in enumerate(series.slices()):
         slice.setColor(colors[i])
-        slice.setLabel(f"{slice.label()} ({slice.percentage()*100:.2f}%)")
+        slice.setLabel(
+            f"<font color='white'>{slice.label()} ({slice.percentage()*100:.2f}%)</font>")
 
     chart = QChart()
     chart.addSeries(series)
     chart.setTitle("<font color='white'>Mood Distribution</font>")
 
-    pen = QPen(QColor(255, 255, 255))
-    chart.legend().setPen(pen)
     chart.legend().setAlignment(Qt.AlignBottom)
     chart.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
 
