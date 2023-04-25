@@ -12,4 +12,4 @@ Required Libraries:
 Use <code>pip install PACKAGENAME</code> to install required packages.<br />
 Tweepy is used to collect the tweets, TextBlob analyzes the sentiment (or "mood") of the tweets, and PyQt5 provides the UI elements.<br />
 <br /><hr />
-![Main Window](screenshot-01.png?raw=true "Main Window")
+<img src="screenshot-01.png?raw=true" class="text-align:center;">
