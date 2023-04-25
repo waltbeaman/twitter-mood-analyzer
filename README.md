@@ -1,6 +1,6 @@
 # Twitter Mood Tracker
 
-Find the current mood of a given topic on Twitter.
+Find the current mood of recent tweetsa given topic on Twitter.
 <br /><hr />
 Required Libraries:
 
@@ -9,7 +9,7 @@ Required Libraries:
     <li><a href="https://github.com/sloria/TextBlob">TextBlob</a></li>
     <li><a href="https://wiki.python.org/moin/PyQt">PyQt5</a></li>
 </ul>
-Use <code>pip install PACKAGENAME</code> to install required packages.<br />
+Use <code>pip install &lt;packagenamehere&gt;</code> to install required packages.<br />
 Tweepy is used to collect the tweets, TextBlob analyzes the sentiment (or "mood") of the tweets, and PyQt5 provides the UI elements.<br />
 <br /><hr />
-<img src="screenshot-01.png?raw=true" style="text-align:center;">
+<img src="screenshot-01.png?raw=true">
