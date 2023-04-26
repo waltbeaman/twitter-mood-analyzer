@@ -1,9 +1,9 @@
 import tweepy
 import json
-import style
+import darkmode
 import twitterapicreds
 from textblob import TextBlob
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QTextEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QTextEdit, QLabel
 from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QColor, QBrush, QIcon
@@ -40,8 +40,6 @@ def analyze_sentiment(tweets):
 
 
 # Get the overall score or "mood" of the searched tweet
-# TODO: Display overall mood in separate text area or image with a larger/bold font.
-#   This should be the focus of the app.
 def get_overall_sentiment(sentiment_scores):
     overall_sentiment = 0
     mood_rating = "NEUTRAL"
@@ -102,6 +100,11 @@ class MoodAnalyzerApp(QWidget):
         search_layout.addWidget(self.search_bar)
         search_layout.addWidget(search_button)
 
+        self.overall_mood_label = QLabel("Overall Mood: N/A")
+        self.overall_mood_label.setObjectName("overallMoodLabel")
+        self.overall_mood_label.setAlignment(Qt.AlignCenter)
+        self.overall_mood_label.setFixedHeight(30)
+
         self.result_area = QTextEdit()
         self.result_area.setReadOnly(True)
 
@@ -111,12 +114,14 @@ class MoodAnalyzerApp(QWidget):
         self.pie_chart_view.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
 
         # Create an empty chart area and set color to ensure dark mode on startup
+        # TODO: Add an image and/or instructions to this area so it's not a large empty space.
         empty_chart = QChart()
         # TODO: Investigate if it's possible to set the chart background color with CSS.
         empty_chart.setBackgroundBrush(QBrush(QColor(43, 43, 43)))
         self.pie_chart_view.setChart(empty_chart)
 
         main_layout.addLayout(search_layout)
+        main_layout.addWidget(self.overall_mood_label)
         main_layout.addWidget(self.result_area)
         main_layout.addWidget(self.pie_chart_view)
 
@@ -126,7 +131,7 @@ class MoodAnalyzerApp(QWidget):
         self.setFixedHeight(600)
 
         # TODO: Add icon (WIP)
-        # self.setWindowIcon(QIcon("icon.png"))
+        self.setWindowIcon(QIcon("./icon.ico"))
 
     def analyze_mood_button(self):
         query = self.search_bar.text()
@@ -134,15 +139,16 @@ class MoodAnalyzerApp(QWidget):
         sentiment_scores = analyze_sentiment(tweets)
         overall_mood = f"Overall Mood: {get_overall_sentiment(sentiment_scores)}"
 
+        self.overall_mood_label.setText(overall_mood)
+
         positive_count = sum(1 for score in sentiment_scores if score > 0)
         neutral_count = sum(1 for score in sentiment_scores if score == 0)
         negative_count = sum(1 for score in sentiment_scores if score == 0)
 
         tweets_with_scores = "\n".join(
             f"Tweet: {tweet}\nMood: {score:.2f}" for tweet, score in zip(tweets, sentiment_scores))
-        result_text = overall_mood + "\n" + tweets_with_scores
 
-        self.result_area.setPlainText(result_text)
+        self.result_area.setPlainText(tweets_with_scores)
 
         chart = draw_pie_chart(positive_count, neutral_count, negative_count)
         self.pie_chart_view.setChart(chart)
@@ -151,7 +157,7 @@ class MoodAnalyzerApp(QWidget):
 # Build and execute UI
 def main():
     app = QApplication(sys.argv)
-    app.setStyleSheet(style.DARK_STYLE)
+    app.setStyleSheet(darkmode.DARK_STYLE)
     mood_tracker = MoodAnalyzerApp()
     mood_tracker.show()
     sys.exit(app.exec_())

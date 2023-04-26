@@ -19,6 +19,11 @@ DARK_STYLE = """
     QPushButton:hover {
         background-color: #5a5a5a;
     }
+    #overallMoodLabel {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+    }
     QTextEdit {
         background-color: #414141;
         border: 1px solid #5a5a5a;
