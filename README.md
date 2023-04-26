@@ -1,11 +1,9 @@
-# Twitter Mood Tracker
+# <img src="icon.png?raw=true" width="50" height="50" style="position: relative;top: 20px;">Twitter Mood Tracker
 
-<br />
-<img src="icon.png?raw=true">
-<br />
 Find the current mood of recent tweets for a given topic on Twitter.
 <br /><hr />
 Required Libraries:
+
 <ul>
     <li><a href="https://github.com/tweepy/tweepy">Tweepy</a></li>
     <li><a href="https://github.com/sloria/TextBlob">TextBlob</a></li>
