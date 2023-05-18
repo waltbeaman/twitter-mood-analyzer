@@ -94,8 +94,10 @@ class MoodAnalyzerApp(QWidget):
 
         search_layout = QHBoxLayout()
         self.search_bar = QLineEdit()
+        # Add a null check before executing query
         search_button = QPushButton("Analyze Mood")
         search_button.clicked.connect(self.analyze_mood_button)
+        self.search_bar.returnPressed.connect(self.analyze_mood_button)
 
         search_layout.addWidget(self.search_bar)
         search_layout.addWidget(search_button)
